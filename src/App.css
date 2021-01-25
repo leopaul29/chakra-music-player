@@ -1,0 +1,7 @@
+audio {
+  width: 400px;
+  margin: auto;
+}
+.song__title:hover {
+  cursor: pointer;
+}
