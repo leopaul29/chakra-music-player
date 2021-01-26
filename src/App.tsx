@@ -64,7 +64,8 @@ function playSong(song: any) {
   console.log("song", song)
   let audioSrc = document.querySelector('#audio-src')
   audioSrc?.setAttribute('src', song.path)
-  let audio = document.querySelector('#audio')
+  const audio= (document.querySelector('#audio') as HTMLAudioElement)
+  audio?.play()
 }
 
 export const App = () => (
@@ -97,9 +98,11 @@ export const App = () => (
             </Tbody>
           </Table>
           <audio id="audio" controls preload="auto">
-            <source id="audio-src" src="" type="audio/mp3" />
-              Your browser does not support the audio tag.
-            </audio>
+            <source id="audio-src" src="musics/Pandrezz - Mithril (Beat Tape) - 01 Drippin'.mp3" type="audio/mp3" />
+            <source id="audio-src" src="musics/Pandrezz - Mithril (Beat Tape) - 02 dating you.mp3" type="audio/mp3" />
+            <source id="audio-src" src="musics/Pandrezz - Mithril (Beat Tape) - 03 leaving you.mp3" type="audio/mp3" />
+            Your browser does not support the audio tag.
+          </audio>
         </SimpleGrid>
       </Center>
     </Box>
