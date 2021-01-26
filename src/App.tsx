@@ -2,7 +2,7 @@ import * as React from "react"
 import {
   ChakraProvider,
   Box,
-  Grid,
+  Center,
   theme,
   Image,
   SimpleGrid
@@ -64,6 +64,7 @@ function playSong(song: any) {
   console.log("song", song)
   let audioSrc = document.querySelector('#audio-src')
   audioSrc?.setAttribute('src', song.path)
+  let audio = document.querySelector('#audio')
 }
 
 export const App = () => (
@@ -74,9 +75,9 @@ export const App = () => (
       "linear(to-b, orange.100, purple.300)",
     ]}
     >
-      <Grid minH="100vh" p={3}>
+      <Center minH="100vh" p={3}>
         <ColorModeSwitcher justifySelf="flex-end" />
-        <SimpleGrid columns={1} spacing={10} mx={'auto'} bgGradient="linear(to-r, green.200, pink.500)" borderRadius={50} p={5}>
+        <SimpleGrid columns={1} mx={'auto'} bgGradient="linear(to-r, green.200, pink.500)" borderRadius={50} p={5}>
           <Image boxSize="200px" src="musics/cover.jpg" alt="Pandrezz" mx={'auto'} />
           <Table width="500px" variant="unstyled" colorScheme="teal">
             <TableCaption placement="top">Pandrezz - Mithril (Beat Tape)</TableCaption>
@@ -88,19 +89,19 @@ export const App = () => (
             </Thead>
             <Tbody>
               {srcList.map((song) => {
-                return (<Tr className="song__title" key={song.index}>
+                return (<Tr className="song__title" key={song.index} onClick={() => playSong(song)}>
                   <Td>{song.title}</Td>
                   <Td>{song.duration}</Td>
                 </Tr>)
               })}
             </Tbody>
           </Table>
-          <audio id="audio" controls>
+          <audio id="audio" controls preload="auto">
             <source id="audio-src" src="" type="audio/mp3" />
               Your browser does not support the audio tag.
             </audio>
         </SimpleGrid>
-      </Grid>
+      </Center>
     </Box>
   </ChakraProvider>
 )
