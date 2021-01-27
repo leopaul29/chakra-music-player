@@ -65,8 +65,11 @@ function playSong(song: any) {
   let audioSrc = document.querySelector('#audio-src')
   audioSrc?.setAttribute('src', song.path)
   const audio= (document.querySelector('#audio') as HTMLAudioElement)
+  audio?.load()
   audio?.play()
 }
+
+//https://www.w3schools.com/jsref/dom_obj_audio.asp
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -77,7 +80,7 @@ export const App = () => (
     ]}
     >
       <Center minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
+        {/* <ColorModeSwitcher/> */}
         <SimpleGrid columns={1} mx={'auto'} bgGradient="linear(to-r, green.200, pink.500)" borderRadius={50} p={5}>
           <Image boxSize="200px" src="musics/cover.jpg" alt="Pandrezz" mx={'auto'} />
           <Table width="500px" variant="unstyled" colorScheme="teal">
@@ -98,9 +101,7 @@ export const App = () => (
             </Tbody>
           </Table>
           <audio id="audio" controls preload="auto">
-            <source id="audio-src" src="musics/Pandrezz - Mithril (Beat Tape) - 01 Drippin'.mp3" type="audio/mp3" />
-            <source id="audio-src" src="musics/Pandrezz - Mithril (Beat Tape) - 02 dating you.mp3" type="audio/mp3" />
-            <source id="audio-src" src="musics/Pandrezz - Mithril (Beat Tape) - 03 leaving you.mp3" type="audio/mp3" />
+            <source id="audio-src" src="" type="audio/mp3" />
             Your browser does not support the audio tag.
           </audio>
         </SimpleGrid>
