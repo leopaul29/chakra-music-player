@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <Table class="table">
+    <img class="cover" src="musics/cover.jpg" alt="cover">
+    <caption>Pandrezz - Mithril (Beat Tape)</caption>
+    <Thead>
+      <Tr>
+        <Th>Title</Th>
+        <Th>Duration</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr class="song__title" onclick="playSong(0)">
+        <Td>Pandrezz - Mithril (Beat Tape) - 01 Drippin'</Td>
+        <Td>2:49</Td>
+      </Tr>
+    </Tbody>
+  </Table>
+
+  <audio id="audio" controls preload="auto">
+    <source id="audio-src" src="" type="audio/mp3" />
+    Your browser does not support the audio tag.
+  </audio>
+
+  <a href="animation.html">animation</a>
+
+  <!-- script -->
+  <script src="app.js"></script>
+</body>
+
+</html>
