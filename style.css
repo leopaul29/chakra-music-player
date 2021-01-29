@@ -15,9 +15,27 @@
 * source: https://youtu.be/gWai7fYp9PY
 */
 body {
-  text-align: center;
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: 1fr auto;
+}
+main {
+  display: grid;
+  place-items: center;
+  grid-template-rows: 1fr auto;
+}
+.bike-guy {
+}
+.audio-player {
+  height: 100px;
+}
+footer {
+  height: 50px;
 }
 
+.paused {
+  animation-play-state: paused !important;
+}
 #right-wheel,
 #left-wheel {
   animation: wheel 2s infinite linear;
@@ -29,9 +47,9 @@ body {
   transform-origin: bottom;
 }
 #hat {
-    animation: hat 0.4s ease-in-out infinite alternate;
-    transform-origin: center;
-    transform-box: fill-box;
+  animation: hat 0.4s ease-in-out infinite alternate;
+  transform-origin: center;
+  transform-box: fill-box;
 }
 @keyframes wheel {
   from {
@@ -51,7 +69,7 @@ body {
 }
 @keyframes hat {
   from {
-      transform: translateY(0%) rotateZ(0deg);
+    transform: translateY(0%) rotateZ(0deg);
   }
   to {
     transform: translateY(20%) rotateZ(5deg);
