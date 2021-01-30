@@ -29,6 +29,9 @@ main {
 .audio-player {
   height: 100px;
 }
+.audio-element {
+  visibility: hidden;
+}
 footer {
   height: 50px;
 }

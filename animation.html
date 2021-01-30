@@ -194,6 +194,15 @@
             <button onclick="stop()">Stop</button>
             <button onclick="mute()">Mute</button>
             <button onclick="unmute()">Unmute</button>
+            <button>Reset</button>
+            <button>Loop</button>
+            <div class="audio-elementa">
+                <audio id="audio" controls preload="auto">
+                    <source id="audio-src" src="musics/Pandrezz - Mithril (Beat Tape) - 01 Drippin'.mp3"
+                        type="audio/mp3" />
+                    Your browser does not support the audio tag.
+                </audio>
+            </div>
         </div>
     </main>
     <footer>
@@ -201,11 +210,46 @@
     </footer>
 
     <script>
+
+        var audio = document.getElementById("audio");
         let isMuted = false
         let isPlaying = false
 
         function play() {
             isPlaying = true
+            songPlay();
+            animationPlay();
+        }
+        function stop() {
+            isPlaying = false
+            songStop();
+            animationStop();
+        }
+        function mute() {
+            isMuted = true
+            enableMute();
+            animationMute();
+        }
+        function unmute() {
+            isMuted = false
+            disableMute();
+            animationUnmute();
+        }
+        /* audio player functions */
+        function songPlay() {
+            audio?.play()
+        }
+        function songStop() {
+            audio?.pause()
+        }
+        function enableMute() {
+            audio.muted = true;
+        }
+        function disableMute() {
+            audio.muted = false;
+        }
+        /* animation functions */
+        function animationPlay() {
             document.getElementById("right-wheel").classList.remove('paused');
             document.getElementById("left-wheel").classList.remove('paused');
             document.getElementById("man-bike").classList.remove('paused');
@@ -213,21 +257,18 @@
             if (isMuted) mute(); else unmute()
         }
 
-        function stop() {
-            isPlaying = false
+        function animationStop() {
             document.getElementById("right-wheel").classList.add('paused');
             document.getElementById("left-wheel").classList.add('paused');
             document.getElementById("man-bike").classList.add('paused');
             document.getElementById("hat").classList.add('paused');
         }
 
-        function mute() {
-            isMuted = true
+        function animationMute() {
             document.getElementById("man-bike").classList.add('paused');
             document.getElementById("hat").classList.add('paused');
         }
-        function unmute() {
-            isMuted = false
+        function animationUnmute() {
             document.getElementById("man-bike").classList.remove('paused');
             document.getElementById("hat").classList.remove('paused');
             if (isPlaying) play(); else stop()
