@@ -194,7 +194,7 @@
             <button onclick="stop()">Stop</button>
             <button onclick="mute()">Mute</button>
             <button onclick="unmute()">Unmute</button>
-            <button">Reset</button>
+            <button onclick="reset()"">Reset</button>
             <button onclick=" loop()">Loop</button>
             <div class="audio-elementa">
                 <audio id="audio" controls preload="auto">
@@ -235,6 +235,9 @@
             isMuted = false
             disableMute();
             animationUnmute();
+        }
+        function reset() {
+            audio.currentTime = 0
         }
         function loop() {
             setLoop(isLoop)
