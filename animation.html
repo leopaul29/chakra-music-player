@@ -196,8 +196,10 @@
             <button onclick="unmute()">Unmute</button>
             <button onclick="reset()"">Reset</button>
             <button onclick=" loop()">Loop</button>
-            <button onclick="volumeUp()">+</button>
-            <button onclick="volumeDown()">-</button>
+            <button onclick="volumeUp()">fade out</button>
+            <button onclick="volumeDown()">fade in</button>
+            <button onclick="speedUp()">speed up</button>
+            <button onclick="speedDown()">speed down</button>
             <div class="audio-elementa">
                 <audio id="audio" controls preload="auto">
                     <source id="audio-src" src="musics/Pandrezz - Mithril (Beat Tape) - 01 Drippin'.mp3"
@@ -216,6 +218,7 @@
         let isMuted = false
         let isPlaying = false
         let isLoop = false
+        let speed = 1
 
         function play() {
             isPlaying = true
@@ -244,7 +247,7 @@
             setLoop(isLoop)
         }
         function setLoop(loop) {
-            audio.loop = loop
+            audio.loop = !loop
             isLoop = !loop
         }
         /* audio player functions */
@@ -261,13 +264,20 @@
             audio.muted = false;
         }
         function volumeUp() {
-            if (audio.volume < .89)
-                audio.volume += 0.1;
-
+            if (audio.volume < 1)
+                audio.volume = Number((audio.volume + 0.1).toFixed(1));
         }
         function volumeDown() {
-            if (audio.volume > .1)
-                audio.volume -= 0.1;
+            if (audio.volume > 0)
+                audio.volume = Number((audio.volume - 0.1).toFixed(1));
+        }
+        function speedUp() {
+            if (audio.playbackRate < 4)
+                audio.playbackRate = Number((audio.playbackRate + 0.1).toFixed(1));
+        }
+        function speedDown() {
+            if (audio.playbackRate > .1)
+                audio.playbackRate = Number((audio.playbackRate - 0.1).toFixed(1));
         }
         /* animation functions */
         function animationPlay() {
