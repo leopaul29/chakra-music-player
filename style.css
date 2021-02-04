@@ -24,6 +24,30 @@ main {
   place-items: center;
   grid-template-rows: 1fr auto;
 }
+#outside {
+  border: 1px solid black;
+  height: 20px;
+  background-color: silver;
+  width: 500px;
+  position: relative;
+}
+#inside {
+  width: 0px;
+  height: 100%;
+  background-color: firebrick;
+  overflow: visible;
+  color: white;
+  white-space: nowrap;
+}
+#currentTime {
+  position: absolute;
+  left: 0;
+}
+#songDuration {
+  position: absolute;
+  right: 0;
+}
+
 .bike-guy {
 }
 .audio-player {
