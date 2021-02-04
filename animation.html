@@ -190,16 +190,18 @@
             </svg>
         </div>
         <div class="audio-player">
-            <button onclick="play()">Play</button>
-            <button onclick="stop()">Stop</button>
-            <button onclick="mute()">Mute</button>
-            <button onclick="unmute()">Unmute</button>
-            <button onclick="reset()"">Reset</button>
-            <button onclick=" loop()">Loop</button>
-            <button onclick="volumeUp()">fade out</button>
-            <button onclick="volumeDown()">fade in</button>
-            <button onclick="speedUp()">speed up</button>
-            <button onclick="speedDown()">speed down</button>
+            <nav class="menu">
+                <button onclick="play()">Play</button>
+                <button onclick="stop()">Stop</button>
+                <button onclick="mute()">Mute</button>
+                <button onclick="unmute()">Unmute</button>
+                <button onclick="reset()"">Reset</button>
+                <button onclick=" loop()">Loop</button>
+                <button onclick="volumeUp()">fade out</button>
+                <button onclick="volumeDown()">fade in</button>
+                <button onclick="speedUp()">speed up</button>
+                <button onclick="speedDown()">speed down</button>
+            </nav>
             <div class="audio-elementa">
                 <audio id="audio" controls preload="auto">
                     <source id="audio-src" src="musics/Pandrezz - Mithril (Beat Tape) - 01 Drippin'.mp3"
@@ -283,9 +285,10 @@
         function animationPlay() {
             document.getElementById("right-wheel").classList.remove('paused');
             document.getElementById("left-wheel").classList.remove('paused');
-            document.getElementById("man-bike").classList.remove('paused');
-            document.getElementById("hat").classList.remove('paused');
-            if (isMuted) mute(); else unmute()
+            if (!isMuted) {
+                document.getElementById("man-bike").classList.remove('paused');
+                document.getElementById("hat").classList.remove('paused');
+            }
         }
 
         function animationStop() {
