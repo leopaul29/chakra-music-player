@@ -227,8 +227,9 @@
             var outside = document.getElementById('outside');
             var inside = document.getElementById('inside');
             var audio = document.getElementById("audio");
+            let isDrawing = false;
 
-            outside.addEventListener('click', function (e) {
+            outside.addEventListener('mousedown', function (e) {
                 inside.style.width = e.offsetX + "px";
 
                 // calculate the %
@@ -236,6 +237,24 @@
                 var songSecondes = (pct * audio.duration) / 100
                 audio.currentTime = songSecondes
                 showCurrentTime()
+                isDrawing = true;
+            }, false);
+
+            outside.addEventListener('mousemove', function (e) {
+                if (isDrawing === true) {
+                    inside.style.width = e.offsetX + "px";
+
+                    // calculate the %
+                    var pct = Math.floor((e.offsetX / outside.offsetWidth) * 100);
+                    var songSecondes = (pct * audio.duration) / 100
+                    audio.currentTime = songSecondes
+                    showCurrentTime()
+                }
+            }, false);
+
+            
+            outside.addEventListener('mouseup', function (e) {
+                isDrawing = false
             }, false);
         }
 
