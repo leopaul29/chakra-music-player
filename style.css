@@ -157,23 +157,3 @@ footer {
   }
 }
 */
-
-
-/* https://sarthology.github.io/Animatopy/ heartBeat */
-@keyframes heartBeat {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.004);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-.heartBeat {
-  animation: heartBeat .8s ease-in-out infinite;
-}
