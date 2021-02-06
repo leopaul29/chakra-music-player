@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100&display=swap');
 /* reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 /* index */
 .cover {
@@ -24,6 +28,45 @@ main {
   place-items: center;
   grid-template-rows: 1fr auto;
 }
+footer {
+  height: 50px;
+}
+/* playlist */
+.selectionPlaylist {
+  background: linear-gradient(
+      135deg,
+      rgb(222, 222, 216) 0%,
+      rgb(120, 127, 143) 100%
+    )
+    repeat scroll 0% 0%;
+  width: 800px;
+  min-width: 500px;
+  height: 240px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+}
+.selectionPlaylist__artwork {
+  margin-right: 20px;
+}
+.selectionPlaylist__trackList {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.track {
+  padding: 10px 10px;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  cursor: pointer;
+}
+.track:hover {
+  background: hsla(0, 0%, 100%, 0.1);
+}
+.track__title {
+  color: hsla(0,0%,100%,.7);
+  font-size: 18px;
+}
+/* player */
 #outside {
   border: 1px solid black;
   height: 20px;
@@ -47,7 +90,7 @@ main {
   position: absolute;
   right: 0;
 }
-
+/* animation guy */
 .bike-guy {
 }
 .audio-player {
@@ -56,10 +99,6 @@ main {
 .audio-element {
   visibility: hidden;
 }
-footer {
-  height: 50px;
-}
-
 .paused {
   animation-play-state: paused !important;
 }
@@ -101,4 +140,40 @@ footer {
   to {
     transform: translateY(20%) rotateZ(5deg);
   }
+}
+
+/* bike bcg */
+/*#paint0_linear {
+  opacity: 0.5;
+  animation: gradient 1.5s ease infinite;
+  background: linear-gradient(-45deg, #23a6d5, #23d5ab);
+}
+@keyframes gradient {
+  0% {
+    stop-color: linear-gradient(-45deg, #23a6d5, #23d5ab);
+  }
+  100% {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e);
+  }
+}
+*/
+
+
+/* https://sarthology.github.io/Animatopy/ heartBeat */
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.004);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.heartBeat {
+  animation: heartBeat .8s ease-in-out infinite;
 }
