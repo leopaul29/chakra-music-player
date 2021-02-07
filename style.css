@@ -1,159 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100&display=swap');
-/* reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  list-style: none;
-  font-family: 'IBM Plex Sans', sans-serif;
-}
-/* index */
-.cover {
-  width: 200px;
-}
-.song__title {
-  cursor: pointer;
-}
 /* animation 
 * source: https://youtu.be/gWai7fYp9PY
 */
-body {
-  display: grid;
-  min-height: 100vh;
-  grid-template-rows: 1fr auto;
-}
-main {
+#main {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+
+  height: 100vh;
   display: grid;
   place-items: center;
-  grid-template-rows: 1fr auto;
-}
-footer {
-  height: 50px;
-}
-/* playlist */
-.selectionPlaylist {
-  background: linear-gradient(
-      135deg,
-      rgb(222, 222, 216) 0%,
-      rgb(120, 127, 143) 100%
-    )
-    repeat scroll 0% 0%;
-  width: 800px;
-  min-width: 500px;
-  height: 240px;
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-}
-.selectionPlaylist__artwork {
-  margin-right: 20px;
-}
-.selectionPlaylist__trackList {
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-.track {
-  padding: 10px 10px;
-  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
-  cursor: pointer;
-}
-.track:hover {
-  background: hsla(0, 0%, 100%, 0.1);
-}
-.track__title {
-  color: hsla(0,0%,100%,.7);
-  font-size: 18px;
-}
-/* player */
-#outside {
-  border: 1px solid black;
-  height: 20px;
-  background-color: silver;
-  width: 500px;
-  position: relative;
-}
-#inside {
-  width: 0px;
-  height: 100%;
-  background-color: firebrick;
-  overflow: visible;
-  color: white;
-  white-space: nowrap;
-}
-#currentTime {
-  position: absolute;
-  left: 0;
-}
-#songDuration {
-  position: absolute;
-  right: 0;
-}
-/* animation guy */
-.bike-guy {
-}
-.audio-player {
-  height: 100px;
-}
-.audio-element {
-  visibility: hidden;
-}
-.paused {
-  animation-play-state: paused !important;
-}
-#right-wheel,
-#left-wheel {
-  animation: wheel 2s infinite linear;
-  transform-origin: center;
-  transform-box: fill-box;
-}
-#man-bike {
-  animation: bike 0.4s ease-out infinite alternate;
-  transform-origin: bottom;
-}
-#hat {
-  animation: hat 0.4s ease-in-out infinite alternate;
-  transform-origin: center;
-  transform-box: fill-box;
-}
-@keyframes wheel {
-  from {
-    transform: rotateZ(0deg);
-  }
-  to {
-    transform: rotateZ(360deg);
-  }
-}
-@keyframes bike {
-  from {
-    transform: rotateX(0deg);
-  }
-  to {
-    transform: rotateX(10deg);
-  }
-}
-@keyframes hat {
-  from {
-    transform: translateY(0%) rotateZ(0deg);
-  }
-  to {
-    transform: translateY(20%) rotateZ(5deg);
-  }
+  grid-template-rows: 1fr auto auto;
 }
 
-/* bike bcg */
-/*#paint0_linear {
-  opacity: 0.5;
-  animation: gradient 1.5s ease infinite;
-  background: linear-gradient(-45deg, #23a6d5, #23d5ab);
-}
 @keyframes gradient {
   0% {
-    stop-color: linear-gradient(-45deg, #23a6d5, #23d5ab);
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
   100% {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e);
+    background-position: 0% 50%;
   }
 }
-*/

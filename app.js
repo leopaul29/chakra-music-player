@@ -1,52 +1,254 @@
-
-let indexSrc = 0
+let indexSrc = 0;
 const srcList = [
   {
-    "index": 0,
-    "path": "musics/Pandrezz - Mithril (Beat Tape) - 01 Drippin'.mp3",
-    "title": "Drippin",
-    "duration": "2:49"
+    index: 0,
+    path: "musics/Pandrezz - Mithril (Beat Tape) - 01 Drippin'.mp3",
+    title: "Drippin",
+    duration: "2:49",
   },
   {
-    "index": 1,
-    "path": "musics/Pandrezz - Mithril (Beat Tape) - 02 dating you.mp3",
-    "title": "Dating you",
-    "duration": "2:02"
+    index: 1,
+    path: "musics/Pandrezz - Mithril (Beat Tape) - 02 dating you.mp3",
+    title: "Dating you",
+    duration: "2:02",
   },
   {
-    "index": 2,
-    "path": "musics/Pandrezz - Mithril (Beat Tape) - 03 leaving you.mp3",
-    "title": "Leaving you",
-    "duration": "2:10"
+    index: 2,
+    path: "musics/Pandrezz - Mithril (Beat Tape) - 03 leaving you.mp3",
+    title: "Leaving you",
+    duration: "2:10",
   },
   {
-    "index": 3,
-    "path": "musics/Pandrezz - Mithril (Beat Tape) - 04 san francisco (feat. Idealism).mp3",
-    "title": "San Francisco",
-    "duration": "2:30"
-  }, {
-    "index": 4,
-    "path": "musics/Pandrezz - Mithril (Beat Tape) - 05 I'm Sorry For This Love Ballad.mp3",
-    "title": "I'm Sorry For This Love Ballad",
-    "duration": "2:27"
-  }
-]
+    index: 3,
+    path:
+      "musics/Pandrezz - Mithril (Beat Tape) - 04 san francisco (feat. Idealism).mp3",
+    title: "San Francisco",
+    duration: "2:30",
+  },
+  {
+    index: 4,
+    path:
+      "musics/Pandrezz - Mithril (Beat Tape) - 05 I'm Sorry For This Love Ballad.mp3",
+    title: "I'm Sorry For This Love Ballad",
+    duration: "2:27",
+  },
+];
 
-function nextSource() {
-  indexSrc++
-  if (indexSrc === srcList.length) indexSrc = 0
-  console.log("nextSource ", indexSrc)
-  let audioSrc = document.querySelector('#audio-src')
-  audioSrc?.setAttribute('src', srcList[indexSrc].path)
+var audio = document.getElementById("audio");
+var isMuted = false;
+var isPlaying = false;
+var isLoop = false;
+var speed = 1;
+
+//Forked from Chris Coyier's pen : https://codepen.io/chriscoyier/pen/eYNQyPe
+var range = document.querySelector(".range");
+var bubble = document.querySelector(".bubble");
+range.addEventListener("input", () => {
+  setBubble(range);
+});
+
+function setBubble(range) {
+  if (range == 0) {
+    audio.currentTime = 0;
+  } else {
+    var bubble = document.querySelector(".bubble");
+    const val = range.value;
+    const min = range.min || 0;
+    const max = range.max || 100;
+    const offset = Number(((val - min) * 100) / (max - min));
+    // yes, 14px is a magic number
+    bubble.style.left = `calc(${offset}% - 14px)`;
+    var songSecondes = Math.floor((val * audio.duration) / 100);
+    // song timing
+    audio.currentTime = songSecondes;
+  }
+  showCurrentTime();
+}
+function updateProgressBar() {
+  var range = document.querySelector(".range");
+  var bubble = document.querySelector(".bubble");
+  const val = range.value;
+  const min = range.min || 0;
+  const max = range.max || 100;
+  const offset = Number(((val - min) * 100) / (max - min));
+  // yes, 14px is a magic number
+  bubble.style.left = `calc(${offset}% - 14px)`;
+  showCurrentTime();
+}
+
+/* ------------- */
+/*function nextSource() {
+  indexSrc++;
+  if (indexSrc === srcList.length) indexSrc = 0;
+  console.log("nextSource ", indexSrc);
+  let audioSrc = document.querySelector("#audio-src");
+  audioSrc?.setAttribute("src", srcList[indexSrc].path);
 }
 
 function playSong(index) {
-  let song = srcList[index]
-  let audioSrc = document.querySelector('#audio-src')
-  audioSrc?.setAttribute('src', song.path)
-  const audio= (document.querySelector('#audio'))
-  audio?.load()
-  audio?.play()
+  let song = srcList[index];
+  let audioSrc = document.querySelector("#audio-src");
+  audioSrc?.setAttribute("src", song.path);
+  const audio = document.querySelector("#audio");
+  audio?.load();
+  audio?.play();
+}*/
+function playTrack(songTrack) {
+  let audioSrc = document.querySelector("#audio-src");
+  audioSrc?.setAttribute("src", "musics/" + songTrack);
+  reset();
+  play();
+}
+/* ------------- */
+
+/* progressbar time */
+function showCurrentTime() {
+  var songTime = formatSongTime(audio.currentTime);
+  document.getElementById("currentTime").innerHTML = songTime;
+}
+function showSongDuration() {
+  var audio = document.querySelector("#audio");
+  var songDuration = formatSongTime(audio.duration);
+  console.log("audio.duration", audio.duration);
+  document.getElementById("songDuration").innerHTML = songDuration;
+}
+/*format song time*/
+function formatSongTime(seconds) {
+  var minutes = Math.floor(seconds / 60);
+  var seconds = Math.round(seconds % 60);
+  if (seconds < 10) seconds = "0" + seconds;
+  return minutes + ":" + seconds;
+}
+/* controls */
+function play() {
+  isPlaying = true;
+  document
+    .getElementById("playBtn")
+    .classList.replace("available", "notAvailable");
+  document
+    .getElementById("pauseBtn")
+    .classList.replace("notAvailable", "available");
+  songPlay();
+  animationPlay();
+  showSongDuration();
+  var id = setInterval(updateProgressBar, 100);
+}
+function stop() {
+  isPlaying = false;
+  document
+    .getElementById("pauseBtn")
+    .classList.replace("available", "notAvailable");
+  document
+    .getElementById("playBtn")
+    .classList.replace("notAvailable", "available");
+  songStop();
+  animationStop();
+}
+function mute() {
+  isMuted = true;
+  document
+    .getElementById("muteBtn")
+    .classList.replace("available", "notAvailable");
+  document
+    .getElementById("unmuteBtn")
+    .classList.replace("notAvailable", "available");
+  enableMute();
+  animationMute();
+}
+function unmute() {
+  console.log("csii");
+  isMuted = false;
+  document
+    .getElementById("unmuteBtn")
+    .classList.replace("available", "notAvailable");
+  document
+    .getElementById("muteBtn")
+    .classList.replace("notAvailable", "available");
+  disableMute();
+  animationUnmute();
+}
+function reset() {
+  audio?.load();
+  setBubble(0);
+}
+function loop() {
+  setLoop(isLoop);
+}
+function setLoop(loop) {
+  audio.loop = !loop;
+  isLoop = !loop;
+
+  if (isLoop) animationIsLoop();
+  else animationIsNotLoop();
+}
+/* audio player functions */
+function songPlay() {
+  audio?.play();
+}
+function songStop() {
+  audio?.pause();
+}
+function enableMute() {
+  audio.muted = true;
+}
+function disableMute() {
+  audio.muted = false;
+}
+function volumeUp() {
+  if (audio.volume < 1) audio.volume = Number((audio.volume + 0.1).toFixed(1));
+}
+function volumeDown() {
+  if (audio.volume > 0) audio.volume = Number((audio.volume - 0.1).toFixed(1));
+}
+function speedUp() {
+  if (audio.playbackRate < 4)
+    audio.playbackRate = Number((audio.playbackRate + 0.1).toFixed(1));
+}
+function speedDown() {
+  if (audio.playbackRate > 0.1)
+    audio.playbackRate = Number((audio.playbackRate - 0.1).toFixed(1));
 }
 
-//https://www.w3schools.com/jsref/dom_obj_audio.asp
+/* animation functions */
+function animationIsLoop() {
+  document
+    .getElementById("paint0_linear_stopcolor1")
+    .setAttribute("stop-color", "#FFCA58");
+  document
+    .getElementById("paint0_linear_stopcolor2")
+    .setAttribute("stop-color", "#8B49FF");
+}
+function animationIsNotLoop() {
+  document
+    .getElementById("paint0_linear_stopcolor1")
+    .setAttribute("stop-color", "#8BD9F1");
+  document
+    .getElementById("paint0_linear_stopcolor2")
+    .setAttribute("stop-color", "#A863FF");
+}
+function animationPlay() {
+  document.getElementById("right-wheel").classList.remove("paused");
+  document.getElementById("left-wheel").classList.remove("paused");
+  if (!isMuted) {
+    document.getElementById("man-bike").classList.remove("paused");
+    document.getElementById("hat").classList.remove("paused");
+  }
+}
+
+function animationStop() {
+  document.getElementById("right-wheel").classList.add("paused");
+  document.getElementById("left-wheel").classList.add("paused");
+  document.getElementById("man-bike").classList.add("paused");
+  document.getElementById("hat").classList.add("paused");
+}
+
+function animationMute() {
+  document.getElementById("man-bike").classList.add("paused");
+  document.getElementById("hat").classList.add("paused");
+}
+function animationUnmute() {
+  document.getElementById("man-bike").classList.remove("paused");
+  document.getElementById("hat").classList.remove("paused");
+  if (isPlaying) play();
+  else stop();
+}
