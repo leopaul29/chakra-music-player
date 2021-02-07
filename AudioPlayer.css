@@ -39,7 +39,8 @@
 }
 #currentTime,
 #songDuration {
-  width: 30px;
+  width: 100px;
+  text-align: center;
   margin: auto;
 }
 .range-wrap {

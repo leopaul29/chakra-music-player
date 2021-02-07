@@ -14,6 +14,9 @@
 
 <body>
   <main id="main">
+    <header id="header">
+      <h1>Music player</h1>
+    </header>
     <section class="bike-guy">
       <div class="bike-guy ">
         <svg width="674" height="500" viewBox="0 0 1058 785" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -194,58 +197,60 @@
     </section>
     <section id="playlist" class="selectionPlaylist">
       <div class="selectionPlaylist__artwork">
-        <img class="artwork" src="images/cover.jpg" alt="Pandrezz - Mithril (Beat Tape)">
+        <a href="https://pandrezz.bandcamp.com/album/mithril-beat-tape" target="_blank" rel="noopener noreferrer">
+          <img class="artwork" src="images/cover.jpg" alt="Pandrezz - Mithril (Beat Tape)">
+        </a>
       </div>
       <div class="selectionPlaylist__trackList">
         <ul class="trackList">
-          <li class="" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 01 Drippin\'.mp3')">
+          <li class="track__li" data-index="0" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 01 Drippin\'.mp3')">
             <div class="track">
               <div class="track__title">01 - Drippin'</div>
             </div>
           </li>
-          <li class="" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 02 dating you.mp3')">
+          <li class="track__li" data-index="1" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 02 dating you.mp3')">
             <div class="track">
               <div class="track__title">02 - Dating you</div>
             </div>
           </li>
-          <li class="" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 03 leaving you.mp3')">
+          <li class="track__li" data-index="2" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 03 leaving you.mp3')">
             <div class="track">
               <div class="track__title">03 - Leaving you</div>
             </div>
           </li>
-          <li class="" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 04 san francisco (feat. Idealism).mp3')">
+          <li class="track__li" data-index="3" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 04 san francisco (feat. Idealism).mp3')">
             <div class="track">
               <div class="track__title">04 - San francisco (feat. Idealism)
               </div>
             </div>
           </li>
-          <li class="" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 05 I\'m Sorry For This Love Ballad.mp3')">
+          <li class="track__li" data-index="4" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 05 I\'m Sorry For This Love Ballad.mp3')">
             <div class="track">
               <div class="track__title">05 - I'm Sorry For This Love Ballad
               </div>
             </div>
           </li>
-          <li class="" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 06 A Stranger at Home.mp3')">
+          <li class="track__li" data-index="5" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 06 A Stranger at Home.mp3')">
             <div class="track">
               <div class="track__title">06 - A Stranger at Home</div>
             </div>
           </li>
-          <li class="" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 07 I Don\'t Mind.mp3')">
+          <li class="track__li" data-index="6" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 07 I Don\'t Mind.mp3')">
             <div class="track">
               <div class="track__title">07 - I Don't Mind</div>
             </div>
           </li>
-          <li class="" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 08 Lazy Monday.mp3')">
+          <li class="track__li" data-index="7" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 08 Lazy Monday.mp3')">
             <div class="track">
               <div class="track__title">08 - Lazy Monday</div>
             </div>
           </li>
-          <li class="" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 09 Irish Pub.mp3')">
+          <li class="track__li" data-index="8" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 09 Irish Pub.mp3')">
             <div class="track">
               <div class="track__title">09 - Irish Pub</div>
             </div>
           </li>
-          <li class="" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 10 Soft & Quick.mp3')">
+          <li class="track__li" data-index="9" onclick="playTrack('Pandrezz - Mithril (Beat Tape) - 10 Soft & Quick.mp3')">
             <div class="track">
               <div class="track__title">10 - Soft & Quick</div>
             </div>
@@ -256,19 +261,19 @@
     <section class="section__audioPlayer">
       <div class="audioPlayer">
         <nav class="audioPlayer__leftControls">
-          <button id="previousBtn" type="button" class="button available" onclick="previous()">
+          <button id="previousBtn" type="button" class="button available">
             <img src="icons/skip-back.svg" alt="previous" /></button>
-          <button id="speedDownBtn" type="button" class="button available" onclick="speedDown()">
+          <button id="speedDownBtn" type="button" class="button available">
             <img src="icons/fast-forward.svg" alt="speedUp" /></button>
-          <button id="playBtn" type="button" class="button available" onclick="play()">
+          <button id="playBtn" type="button" class="button available">
             <img src="icons/play.svg" alt="play" /></button>
-          <button id="pauseBtn" type="button" class="button notAvailable" onclick="stop()">
+          <button id="pauseBtn" type="button" class="button notAvailable">
             <img src="icons/pause.svg" alt="pause" /></button>
-          <button id="speedUpBtn" type="button" class="button available" onclick="speedUp()">
+          <button id="speedUpBtn" type="button" class="button available">
             <img src="icons/fast-forward.svg" alt="speedDown" /></button>
-          <button id="nextBtn" type="button" class="button available" onclick="next()">
+          <button id="nextBtn" type="button" class="button available">
             <img src="icons/skip-forward.svg" alt="next" /></button>
-          <button id=" loopBtn" type="button" class="button available" onclick=" loop()">
+          <button id="loopBtn" type="button" class="button available">
             <img src="icons/repeat.svg" alt="loop" /></button>
         </nav>
         <div class="audioPlayer__progress">
@@ -287,8 +292,8 @@
             <img src="icons/volume-x.svg" alt="unmute" /></button>
           <button id="volumeDownBtn" type="button" class="button available" onclick="volumeDown()">
             <img src="icons/minus-circle.svg" alt="volumeDown" /></button>
-            <button id="volumeUpBtn" type="button" class="button available" onclick="volumeUp()">
-              <img src="icons/plus-circle.svg" alt="volumeUp" /></button>
+          <button id="volumeUpBtn" type="button" class="button available" onclick="volumeUp()">
+            <img src="icons/plus-circle.svg" alt="volumeUp" /></button>
         </div>
         <div class="audio-element">
           <audio id="audio" controls preload="auto">

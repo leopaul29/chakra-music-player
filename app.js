@@ -39,6 +39,8 @@ var isMuted = false;
 var isPlaying = false;
 var isLoop = false;
 var speed = 1;
+var songIndex = 0;
+var nbTracks = document.getElementsByClassName("track__li").length;
 
 //Forked from Chris Coyier's pen : https://codepen.io/chriscoyier/pen/eYNQyPe
 var range = document.querySelector(".range");
@@ -46,12 +48,11 @@ var bubble = document.querySelector(".bubble");
 range.addEventListener("input", () => {
   setBubble(range);
 });
-
+// from bubble to song
 function setBubble(range) {
   if (range == 0) {
     audio.currentTime = 0;
   } else {
-    var bubble = document.querySelector(".bubble");
     const val = range.value;
     const min = range.min || 0;
     const max = range.max || 100;
@@ -64,62 +65,94 @@ function setBubble(range) {
   }
   showCurrentTime();
 }
+// from song to bubble
 function updateProgressBar() {
-  var range = document.querySelector(".range");
-  var bubble = document.querySelector(".bubble");
-  const val = range.value;
-  const min = range.min || 0;
-  const max = range.max || 100;
-  const offset = Number(((val - min) * 100) / (max - min));
+  let offset = 0;
+  if (audio.currentTime != 0) {
+    const val = Math.floor((100 * audio.currentTime) / audio.duration);
+    const min = range.min || 0;
+    const max = range.max || 100;
+    offset = Number(((val - min) * 100) / (max - min));
+  }
   // yes, 14px is a magic number
   bubble.style.left = `calc(${offset}% - 14px)`;
   showCurrentTime();
 }
 
-/* ------------- */
-/*function nextSource() {
-  indexSrc++;
-  if (indexSrc === srcList.length) indexSrc = 0;
-  console.log("nextSource ", indexSrc);
-  let audioSrc = document.querySelector("#audio-src");
-  audioSrc?.setAttribute("src", srcList[indexSrc].path);
-}
-
-function playSong(index) {
-  let song = srcList[index];
-  let audioSrc = document.querySelector("#audio-src");
-  audioSrc?.setAttribute("src", song.path);
-  const audio = document.querySelector("#audio");
-  audio?.load();
-  audio?.play();
-}*/
+/* ------ song track list  ------- */
 function playTrack(songTrack) {
   let audioSrc = document.querySelector("#audio-src");
   audioSrc?.setAttribute("src", "musics/" + songTrack);
   reset();
   play();
 }
-/* ------------- */
+function previous() {}
+function next() {
+  console.log("next");
+  songIndex++;
+  document.getElementsByClassName("track__li")[songIndex].click();
+  /*function nextSource() {
+    indexSrc++;
+    if (indexSrc === srcList.length) indexSrc = 0;
+    console.log("nextSource ", indexSrc);
+    let audioSrc = document.querySelector("#audio-src");
+    audioSrc?.setAttribute("src", srcList[indexSrc].path);
+  }songIndex*/
+}
 
-/* progressbar time */
-function showCurrentTime() {
-  var songTime = formatSongTime(audio.currentTime);
-  document.getElementById("currentTime").innerHTML = songTime;
-}
-function showSongDuration() {
-  var audio = document.querySelector("#audio");
-  var songDuration = formatSongTime(audio.duration);
-  console.log("audio.duration", audio.duration);
-  document.getElementById("songDuration").innerHTML = songDuration;
-}
-/*format song time*/
-function formatSongTime(seconds) {
-  var minutes = Math.floor(seconds / 60);
-  var seconds = Math.round(seconds % 60);
-  if (seconds < 10) seconds = "0" + seconds;
-  return minutes + ":" + seconds;
-}
-/* controls */
+/* input event controls */
+window.onload = function () {
+  document.addEventListener("keydown", function (e) {
+    if (e.keyCode == 32) {
+      if (!isPlaying) play();
+      else stop();
+    }
+  });
+
+  document
+    .getElementById("previousBtn")
+    .addEventListener("click", function (e) {
+      previous();
+    });
+  document
+    .getElementById("speedDownBtn")
+    .addEventListener("click", function (e) {
+      speedDown();
+    });
+  document.getElementById("playBtn").addEventListener("click", function (e) {
+    play();
+  });
+  document.getElementById("pauseBtn").addEventListener("click", function (e) {
+    stop();
+  });
+  document.getElementById("speedUpBtn").addEventListener("click", function (e) {
+    speedUp();
+  });
+  document.getElementById("nextBtn").addEventListener("click", function (e) {
+    next();
+  });
+  document.getElementById("loopBtn").addEventListener("click", function (e) {
+    loop();
+  });
+  document.getElementById("muteBtn").addEventListener("click", function (e) {
+    mute();
+  });
+  document.getElementById("unmuteBtn").addEventListener("click", function (e) {
+    unmute();
+  });
+  document
+    .getElementById("volumeDownBtn")
+    .addEventListener("click", function (e) {
+      volumeDown();
+    });
+  document
+    .getElementById("volumeUpBtn")
+    .addEventListener("click", function (e) {
+      volumeUp();
+    });
+};
+
+/* main functions */
 function play() {
   isPlaying = true;
   document
@@ -156,7 +189,6 @@ function mute() {
   animationMute();
 }
 function unmute() {
-  console.log("csii");
   isMuted = false;
   document
     .getElementById("unmuteBtn")
@@ -167,12 +199,13 @@ function unmute() {
   disableMute();
   animationUnmute();
 }
-function reset() {
-  audio?.load();
-  setBubble(0);
-}
 function loop() {
   setLoop(isLoop);
+}
+
+/* audio function */
+function reset() {
+  audio.load();
 }
 function setLoop(loop) {
   audio.loop = !loop;
@@ -183,10 +216,10 @@ function setLoop(loop) {
 }
 /* audio player functions */
 function songPlay() {
-  audio?.play();
+  audio.play();
 }
 function songStop() {
-  audio?.pause();
+  audio.pause();
 }
 function enableMute() {
   audio.muted = true;
@@ -251,4 +284,21 @@ function animationUnmute() {
   document.getElementById("hat").classList.remove("paused");
   if (isPlaying) play();
   else stop();
+}
+
+/* progressbar time */
+function showCurrentTime() {
+  var songTime = formatSongTime(audio.currentTime);
+  document.getElementById("currentTime").innerHTML = songTime;
+}
+function showSongDuration() {
+  var songDuration = formatSongTime(audio.duration);
+  document.getElementById("songDuration").innerHTML = songDuration;
+}
+/*format song time*/
+function formatSongTime(seconds) {
+  var minutes = Math.floor(seconds / 60);
+  var seconds = Math.round(seconds % 60);
+  if (seconds < 10) seconds = "0" + seconds;
+  return minutes + ":" + seconds;
 }
